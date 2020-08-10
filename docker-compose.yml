@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # Backend
+  smart-brain-api: 
+    container_name: backend
+    build: ./
+    command: yarn start
+    working_dir: /usr/src/face-detection-api
+    environment: 
+      POSTGRES_URI: postgres://florin:secret@postgres:5432/smart-brain-docker
+    ports: 
+      - 3000:3000
+    volumes: 
+      - ./:/usr/src/face-detection-api
+  # Postgres
+  postgres:
+    environment: 
+      POSTGRES_USER: florin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: smart-brain-docker
+      POSTGRES_HOST: postgres
+    build: ./postgres
+    ports: 
+      - 5432:5432

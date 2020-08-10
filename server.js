@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex');
+const morgan = require('morgan');
 require('dotenv').config()
 
 const register = require('./controllers/register');
@@ -13,16 +14,12 @@ const image = require('./controllers/image');
 
 const db = knex({
   client: 'pg',
-  connection: {
-    host : '127.0.0.1',
-    user : 'Florin',
-    password : '',
-    database : 'smart-brain'
-  }
+  connection: process.env.POSTGRES_URI
 });
 
-const app = express();
 
+const app = express();
+app.use(morgan())
 app.use(cors())
 app.use(bodyParser.json());
 
