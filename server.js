@@ -18,7 +18,10 @@ const auth = require('./Authorization/authorization');
 
 const db = knex({
   client: 'pg',
-  connection: process.env.POSTGRES_URI
+  connection: {
+    connectionString: process.env.DATABASE_URL,
+    ssl:true
+  }
 });
 
 
@@ -36,7 +39,8 @@ app.put('/image', auth.requireAuth, (req, res) => { image.handleImage(req, res, 
 app.post('/imageurl', auth.requireAuth, (req, res) => { image.handleApiCall(req, res)})
 app.post('/signout', auth.requireAuth, (req, res) => {signout.handleSignout(req, res)})
 
-app.listen(3000, ()=> {
-  console.log('app is running on port 3000');
+const PORT  = process.env.PORT || 3000
+app.listen(PORT, ()=> {
+  console.log(`App is running on port ${PORT}`);
 })
 
