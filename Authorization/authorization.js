@@ -28,6 +28,7 @@ const createSessions = (user) => {
   const  { email, id } = user
   console.log(email, "from auth")
   const token = signToken(email)
+  console.log(token)
   return setToken(token, id)
           .then(()=> ({success: 'true', userId: id, token}))
           .catch(error => console.log(error))
