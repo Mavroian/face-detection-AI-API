@@ -9,10 +9,20 @@ services:
     working_dir: /usr/src/face-detection-api
     environment: 
       POSTGRES_URI: postgres://florin:secret@postgres:5432/smart-brain-docker
+      REDIS_URI: redis://redis:6379
+    links:
+      - postgres
+      - redis
     ports: 
       - 3000:3000
     volumes: 
       - ./:/usr/src/face-detection-api
+  # Redis
+  redis:
+    image: redis
+    ports:
+     - "6379:6379"
+     
   # Postgres
   postgres:
     environment: 
