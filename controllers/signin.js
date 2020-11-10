@@ -31,7 +31,10 @@ const signinAuthentication = (db, bcrypt) => (req, res) => {
         return data.id && data.email ? createSessions(data) : Promise.reject(data)
       })
       .then(session => res.json(session) )
-      .catch(error => res.status(400).json(error))
+      .catch(error => {
+        console.log(error)
+        res.status(400).json(error)
+      })
 }
 module.exports = {
   signinAuthentication
